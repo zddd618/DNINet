@@ -1,0 +1,12 @@
+name: dninet
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - git-lfs
+  - cuda-nvcc=12.1
+  - cuda-cudart-dev=12.1
+  - cuda-cccl
+  - gcc_linux-64=12
+  - gxx_linux-64=12
