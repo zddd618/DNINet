@@ -12,6 +12,7 @@ This repository contains the DNINet implementations for KITTI and NYUv2, the CUD
 | nyu/ | NYUv2 DNINet model, data loader, losses, training and evaluation code |
 | ops/BpOps/, ops/DCNv2/ | CUDA operator source used by DNINet |
 | scripts/evaluate.py | Single-GPU evaluation and profiling |
+| configs/paper_settings.yaml | Training and architecture settings reported in the manuscript |
 | weights/kitti_ema11.pt | Model state used by the original KITTI submission script |
 | weights/nyu_ema.pt | NYUv2-trained model state used in the response experiments |
 
@@ -59,7 +60,7 @@ For a one-image smoke test, add --limit 1 --skip-profile. The script writes summ
 
 ## Training code
 
-The original training entry points are kitti/train.py and nyu/train.py. They use PyTorch distributed initialization and can be launched from their respective directories with torchrun --standalone --nproc_per_node=1 train.py. Set DNINET_DATA_ROOT to the parent of KITTIDC and NYUBIG, and DNINET_NYU_ROOT to the NYUv2 directory. These scripts preserve the experimental training logic and checkpoint continuation behavior; the released model-only weights are intended for inference, not optimizer-state resumption.
+The included kitti/train.py and nyu/train.py are the second-stage training entry points. They use PyTorch distributed initialization and can be launched from their respective directories with torchrun --standalone --nproc_per_node=1 train.py. Set DNINET_DATA_ROOT to the parent of KITTIDC and NYUBIG, and DNINET_NYU_ROOT to the NYUv2 directory. The second stage expects a first-stage checkpoint in checkpoint/checkpoint_ori.pt; the released model-only weights are intended for inference and cannot resume the original optimizer state. The paper reports the first-stage settings, but this repository does not provide a verified from-scratch training recipe for both stages.
 
 ## External code
 
